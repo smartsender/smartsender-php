@@ -9,23 +9,48 @@
 namespace SmartSender\V3\Mailer;
 
 
+use SmartSender\V3\ContactList\Variable;
+
 class TriggerEmail
 {
 
     /** @var string */
-    protected $contactListId;
+    protected $id = '';
 
     /** @var string */
-    protected $contact;
+    protected $contactListId = '';
 
     /** @var string */
-    protected $templateId;
+    protected $contact = '';
+
+    /** @var string */
+    protected $templateId = '';
 
     /** @var array */
-    protected $tags;
+    protected $tags = [];
 
-    /** @var array */
-    protected $variables;
+    /** @var Variable[] */
+    protected $variables = [];
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return TriggerEmail
+     */
+    public function setId(string $id): TriggerEmail
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -116,17 +141,33 @@ class TriggerEmail
     }
 
     /**
-     * @param string $name
-     * @param string $value
+     * @param Variable $variable
      *
      * @return TriggerEmail
      */
-    public function addVariable(string $name, string $value): TriggerEmail
+    public function addVariable(Variable $variable): TriggerEmail
     {
-        $this->variables[$name] = $value;
+        $this->variables[] = $variable;
 
         return $this;
     }
 
+    public function __toArray()
+    {
+        $array = [
+            'contactListId' => $this->getContactListId(),
+            'contact' => $this->getContact(),
+            'templateId' => $this->getTemplateId(),
+            'tags' => $this->getTags(),
+            'variables' => [],
+        ];
 
+        foreach ($this->getVariables() as $variable) {
+
+            /** @var Variable $variable */
+            $array['variables'][] = $variable->__toArray();
+        }
+
+        return $array;
+    }
 }
