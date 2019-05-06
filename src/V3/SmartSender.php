@@ -11,6 +11,7 @@ namespace SmartSender\V3;
 
 use SmartSender\V3\Adapter\AdapterInterface;
 use SmartSender\V3\Adapter\Response;
+use SmartSender\V3\BannedEmail\BannedEmail;
 use SmartSender\V3\Exceptions\SmartSenderException;
 use SmartSender\V3\Mailer\Email;
 use SmartSender\V3\Mailer\TriggerEmail;
@@ -97,5 +98,34 @@ class SmartSender
         }
 
         return $return;
+    }
+
+
+    /**
+     * @param array $bannedEmails
+     *
+     * @return bool
+     * @throws SmartSenderException
+     */
+    public function addToBlackList(array $bannedEmails): bool
+    {
+        $request = [
+            'records' => [],
+        ];
+
+        foreach($bannedEmails as $bannedEmail) {
+            if ( !$bannedEmail instanceof BannedEmail) {
+                throw new SmartSenderException('banned emails must be an instances of ' . BannedEmail::class);
+            }
+
+            $request['records'][] = $bannedEmail->__toArray();
+        }
+
+        /** @var Response $response */
+        $response = $this->adapter->request('blacklist/add', $request);
+
+        $parsed = $response->getParsedBody();
+
+        return ($parsed && isset($parsed['result'])) ? boolval($parsed['result']) : false;
     }
 }
