@@ -130,6 +130,15 @@ class SmartSender
         return ($parsed && isset($parsed['result'])) ? boolval($parsed['result']) : false;
     }
 
+    /**
+     * @param string $email
+     * @param string $type
+     * @param int    $offset
+     * @param int    $limit
+     *
+     * @return Pagination
+     * @throws SmartSenderException
+     */
     public function paginateBlackList(string $email = '', string $type = '', $offset = 0, $limit = 20): Pagination
     {
         $pagination = new Pagination();
@@ -141,7 +150,7 @@ class SmartSender
         }
 
         if (!empty($type)) {
-            $pagination->setEmail($type);
+            $pagination->setType($type);
         }
 
         /** @var Response $response */
@@ -159,5 +168,30 @@ class SmartSender
         }
 
         return $pagination;
+    }
+
+    /**
+     * @param string $email
+     * @param string $type
+     *
+     * @return bool
+     * @throws
+     */
+    public function removeFromBlackList(string $email, string $type = ''): bool
+    {
+        $request = [
+            'email' => $email,
+        ];
+
+        if (!empty($type)) {
+            $request['type'] = $type;
+        }
+
+        /** @var Response $response */
+        $response = $this->adapter->request('blacklist/remove', $request);
+
+        $parsed = $response->getParsedBody();
+
+        return isset($parsed['result']) ? boolval($parsed['result']) : false;
     }
 }
