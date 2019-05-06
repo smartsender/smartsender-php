@@ -155,11 +155,12 @@ class TriggerEmail
     public function __toArray()
     {
         $array = [
+            'id'            => $this->getId(),
             'contactListId' => $this->getContactListId(),
-            'contact' => $this->getContact(),
-            'templateId' => $this->getTemplateId(),
-            'tags' => $this->getTags(),
-            'variables' => [],
+            'contact'       => $this->getContact(),
+            'templateId'    => $this->getTemplateId(),
+            'tags'          => $this->getTags(),
+            'variables'     => [],
         ];
 
         foreach ($this->getVariables() as $variable) {

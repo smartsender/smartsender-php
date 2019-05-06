@@ -17,6 +17,8 @@ use SmartSender\V3\Mailer\TriggerEmail;
 
 class SmartSender
 {
+    const SUPPORT_EMAIL = 'support@smartsender.io';
+
     /** @var AdapterInterface */
     protected $adapter;
 
@@ -44,7 +46,7 @@ class SmartSender
 
         $parsed = $response->getParsedBody();
         if (!isset($parsed['messageId']) || empty($parsed['messageId'])) {
-            throw new SmartSenderException("empty message id in response. Please contact support@smartsender.io");
+            throw new SmartSenderException("empty message id in response. Please contact " . self::SUPPORT_EMAIL);
         }
 
         $email->setId($parsed['messageId']);
@@ -52,6 +54,12 @@ class SmartSender
         return $email;
     }
 
+    /**
+     * @param TriggerEmail $triggerEmail
+     *
+     * @return TriggerEmail
+     * @throws SmartSenderException
+     */
     public function sendTriggerEmail(TriggerEmail $triggerEmail): TriggerEmail
     {
         /** @var Response $response */
@@ -59,11 +67,35 @@ class SmartSender
 
         $parsed = $response->getParsedBody();
         if (!isset($parsed['messageId']) || empty($parsed['messageId'])) {
-            throw new SmartSenderException("empty message id in response. Please contact support@smartsender.io");
+            throw new SmartSenderException("empty message id in response. Please contact " . self::SUPPORT_EMAIL);
         }
 
         $triggerEmail->setId($parsed['messageId']);
 
         return $triggerEmail;
+    }
+
+    /**
+     * @param array $ids
+     *
+     * @return array
+     * @throws SmartSenderException
+     */
+    public function getEmailInfo(array $ids): array
+    {
+        /** @var Response $response */
+        $response = $this->adapter->request('mailer/info', ['ids' => $ids]);
+
+        $parsed = $response->getParsedBody();
+        if (!isset($parsed['emails']) || !is_array($parsed['emails'])) {
+            throw new SmartSenderException("empty emails in response. Please contact " . self::SUPPORT_EMAIL);
+        }
+
+        $return = [];
+        foreach ($parsed['emails'] as $array) {
+            $return[] = Email::createFromArray($array);
+        }
+
+        return $return;
     }
 }

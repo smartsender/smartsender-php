@@ -292,13 +292,9 @@ class Email
     public function __toArray(): array
     {
         return [
-            'from'     => $this->getFrom() ? $this->getFrom()->__toArray() : null,
-            'to'       => $this->getTo() ? [
-                $this->getTo()->__toArray(),
-            ] : null,
-            'replyTo'  => $this->replyTo ? [
-                $this->getReplyTo()->__toArray(),
-            ] : null,
+            'from'     => $this->to ? $this->getFrom()->__toArray() : null,
+            'to'       => $this->to ? $this->getTo()->__toArray() : null,
+            'replyTo'  => $this->replyTo ? $this->getReplyTo()->__toArray() : null,
             'subject'  => $this->getSubject(),
             'html'     => $this->getHtml(),
             'text'     => $this->getText(),
@@ -306,6 +302,42 @@ class Email
             'tags'     => $this->getTags(),
             'priority' => $this->getPriority(),
         ];
+    }
+
+    public static function createFromArray(array $array): Email
+    {
+        $email = new static();
+        $email->setId(isset($array['id']) ? $array['id'] : '');
+
+        if (isset($array['from'])) {
+            $email->setFrom(new Target(isset($array['from']['email']) ? $array['from']['email'] : '',
+                isset($array['from']['name']) ? $array['from']['name'] : ''));
+        }
+
+        if (isset($array['to'])) {
+            $email->setTo(new Target(isset($array['to']['email']) ? $array['to']['email'] : '',
+                isset($array['to']['name']) ? $array['to']['name'] : ''));
+        }
+
+        $email->setSubject(isset($array['subject']) ? $array['subject'] : '');
+        $email->setHtml(isset($array['html']) ? $array['html'] : '');
+        $email->setText(isset($array['text']) ? $array['text'] : '');
+        $email->setStatus(isset($array['status']) ? $array['status'] : '');
+
+        if(isset($array['headers']) && is_array($array['headers'])) {
+            foreach ($array['headers'] as $header => $value) {
+                $email->addHeader($header, $value);
+            }
+        }
+
+
+        foreach ($array['events'] as $eventAsArray) {
+            if(isset($eventAsArray['event']) && isset($eventAsArray['datetime'])) {
+                $email->addEvent(Event::createFromArray($eventAsArray));
+            }
+        }
+
+        return $email;
     }
 
 }

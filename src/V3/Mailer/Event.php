@@ -11,6 +11,7 @@ namespace SmartSender\V3\Mailer;
 
 class Event
 {
+
     /** @var string */
     protected $event;
 
@@ -38,9 +39,9 @@ class Event
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getDate(): \DateTime
+    public function getDate()
     {
         return $this->date;
     }
@@ -55,6 +56,18 @@ class Event
         $this->date = $date;
 
         return $this;
+    }
+
+    public static function createFromArray(array $array): Event
+    {
+        $event = new static();
+        $event->setEvent(isset($array['event']) ? $array['event'] : '');
+        if (isset($array['datetime'])
+            && $date = \DateTime::createFromFormat('Y-m-d H:i:s', $array['datetime'], new \DateTimeZone('UTC'))) {
+            $event->setDate($date);
+        }
+
+        return $event;
     }
 
 
