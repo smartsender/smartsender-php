@@ -335,7 +335,6 @@ class Email
             }
         }
 
-
         foreach ($array['events'] as $eventAsArray) {
             if (isset($eventAsArray['event']) && isset($eventAsArray['datetime'])) {
                 $email->addEvent(Event::createFromArray($eventAsArray));

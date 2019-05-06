@@ -12,6 +12,7 @@ namespace SmartSender\V3;
 use SmartSender\V3\Adapter\AdapterInterface;
 use SmartSender\V3\Adapter\Response;
 use SmartSender\V3\BannedEmail\BannedEmail;
+use SmartSender\V3\BannedEmail\Pagination;
 use SmartSender\V3\Exceptions\SmartSenderException;
 use SmartSender\V3\Mailer\Email;
 use SmartSender\V3\Mailer\TriggerEmail;
@@ -127,5 +128,36 @@ class SmartSender
         $parsed = $response->getParsedBody();
 
         return ($parsed && isset($parsed['result'])) ? boolval($parsed['result']) : false;
+    }
+
+    public function paginateBlackList(string $email = '', string $type = '', $offset = 0, $limit = 20): Pagination
+    {
+        $pagination = new Pagination();
+        $pagination->setOffset($offset);
+        $pagination->setLimit($limit);
+
+        if (!empty($email)) {
+            $pagination->setEmail($email);
+        }
+
+        if (!empty($type)) {
+            $pagination->setEmail($type);
+        }
+
+        /** @var Response $response */
+        $response = $this->adapter->request('blacklist/find', $pagination->__toArray());
+        $parsed = $response->getParsedBody();
+
+        if (!isset($parsed['data']) || !is_array($parsed['data']) || !isset($parsed['totalCount'])) {
+            throw new SmartSenderException("no data in response. Please contact " . self::SUPPORT_EMAIL);
+        }
+
+        $pagination->setTotalCount(intval($parsed['totalCount']));
+
+        foreach($parsed['data'] as $banned) {
+            $pagination->addBannedEmail(BannedEmail::createFromArray($banned));
+        }
+
+        return $pagination;
     }
 }

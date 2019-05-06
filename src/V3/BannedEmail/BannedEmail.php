@@ -12,19 +12,22 @@ namespace SmartSender\V3\BannedEmail;
 class BannedEmail
 {
 
-    /** @var string */
-    protected $email = '';
+    /** @var string|null */
+    protected $email;
 
-    /** @var string */
-    protected $type = '';
+    /** @var string|null */
+    protected $type;
 
-    /** @var string */
-    protected $rawLog = '';
+    /** @var string|null */
+    protected $rawLog;
 
     /** @var \DateTime|null */
-    protected $expiredAt;
+    protected $createdAt;
 
-    public function __construct(string $email = '', string $type = '', string $rawLog = '')
+    /** @var \DateTime|null */
+    protected $expireAt;
+
+    public function __construct(string $email = null, string $type = null, string $rawLog = null)
     {
         $this->email  = $email;
         $this->type   = $type;
@@ -32,7 +35,7 @@ class BannedEmail
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getEmail(): string
     {
@@ -52,7 +55,7 @@ class BannedEmail
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getType(): string
     {
@@ -72,9 +75,9 @@ class BannedEmail
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRawLog(): string
+    public function getRawLog()
     {
         return $this->rawLog;
     }
@@ -94,19 +97,39 @@ class BannedEmail
     /**
      * @return \DateTime|null
      */
-    public function getExpiredAt(): ?\DateTime
+    public function getCreatedAt(): ?\DateTime
     {
-        return $this->expiredAt;
+        return $this->createdAt;
     }
 
     /**
-     * @param \DateTime|null $expiredAt
+     * @param \DateTime|null $createdAt
      *
      * @return BannedEmail
      */
-    public function setExpiredAt(?\DateTime $expiredAt): BannedEmail
+    public function setCreatedAt(?\DateTime $createdAt): BannedEmail
     {
-        $this->expiredAt = $expiredAt;
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getExpireAt(): ?\DateTime
+    {
+        return $this->expireAt;
+    }
+
+    /**
+     * @param \DateTime|null $expireAt
+     *
+     * @return BannedEmail
+     */
+    public function setExpireAt(?\DateTime $expireAt): BannedEmail
+    {
+        $this->expireAt = $expireAt;
 
         return $this;
     }
@@ -118,7 +141,33 @@ class BannedEmail
             'email'     => $this->getEmail(),
             'type'      => $this->getType(),
             'rawLog'    => $this->getRawLog(),
-            'expiredAt' => !$this->getExpiredAt() ?: $this->getExpiredAt()->format('Y-m-d H:i:s'),
+            'createdAt' => !$this->getCreatedAt() ?: $this->getCreatedAt()->format('Y-m-d H:i:s'),
+            'expireAt' => !$this->getExpireAt() ?: $this->getExpireAt()->format('Y-m-d H:i:s'),
         ];
+    }
+
+    public static function createFromArray(array $array): BannedEmail
+    {
+        $bannedEmail = new static();
+        if(isset($array['email']) && !empty($array['email'])) {
+            $bannedEmail->setEmail(strval($array['email']));
+        }
+        if(isset($array['type']) && !empty($array['type'])) {
+            $bannedEmail->setType(strval($array['type']));
+        }
+        if(isset($array['rawLog']) && !empty($array['rawLog'])) {
+            $bannedEmail->setRawLog(strval($array['rawLog']));
+        }
+        if (isset($array['createdAt'])
+            && $createdAt = \DateTime::createFromFormat('Y-m-d H:i:s', $array['createdAt'], new \DateTimeZone('UTC'))) {
+            $bannedEmail->setCreatedAt($createdAt);
+        }
+
+        if (isset($array['expireAt'])
+            && $expiredAt = \DateTime::createFromFormat('Y-m-d H:i:s', $array['expireAt'], new \DateTimeZone('UTC'))) {
+            $bannedEmail->setExpireAt($expiredAt);
+        }
+
+        return $bannedEmail;
     }
 }
