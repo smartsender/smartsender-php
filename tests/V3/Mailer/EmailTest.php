@@ -47,13 +47,16 @@ class EmailTest extends TestCase
         $this->assertEquals('From', $array['from']['name']);
 
         $this->assertIsArray($array['to']);
-        $this->assertCount(1, $array['to']);
-        $this->assertIsArray($array['to'][0]);
-        $this->assertArrayHasKey('email', $array['to'][0]);
-        $this->assertArrayHasKey('name', $array['to'][0]);
+        $this->assertArrayHasKey('email', $array['to']);
+        $this->assertArrayHasKey('name', $array['to']);
+        $this->assertEquals('to@example.com', $array['to']['email']);
+        $this->assertEquals('To', $array['to']['name']);
 
-        $this->assertEquals('to@example.com', $array['to'][0]['email']);
-        $this->assertEquals('To', $array['to'][0]['name']);
+        $this->assertIsArray($array['replyTo']);
+        $this->assertArrayHasKey('email', $array['replyTo']);
+        $this->assertArrayHasKey('name', $array['replyTo']);
+        $this->assertEquals('replyTo@example.com', $array['replyTo']['email']);
+        $this->assertNull($array['replyTo']['name']);
 
 
         $this->assertEquals('subj', $array['subject']);

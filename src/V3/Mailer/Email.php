@@ -319,12 +319,17 @@ class Email
                 isset($array['to']['name']) ? $array['to']['name'] : ''));
         }
 
+        if (isset($array['replyTo'])) {
+            $email->setTo(new Target(isset($array['replyTo']['email']) ? $array['replyTo']['email'] : '',
+                isset($array['replyTo']['name']) ? $array['replyTo']['name'] : ''));
+        }
+
         $email->setSubject(isset($array['subject']) ? $array['subject'] : '');
         $email->setHtml(isset($array['html']) ? $array['html'] : '');
         $email->setText(isset($array['text']) ? $array['text'] : '');
         $email->setStatus(isset($array['status']) ? $array['status'] : '');
 
-        if(isset($array['headers']) && is_array($array['headers'])) {
+        if (isset($array['headers']) && is_array($array['headers'])) {
             foreach ($array['headers'] as $header => $value) {
                 $email->addHeader($header, $value);
             }
@@ -332,7 +337,7 @@ class Email
 
 
         foreach ($array['events'] as $eventAsArray) {
-            if(isset($eventAsArray['event']) && isset($eventAsArray['datetime'])) {
+            if (isset($eventAsArray['event']) && isset($eventAsArray['datetime'])) {
                 $email->addEvent(Event::createFromArray($eventAsArray));
             }
         }
