@@ -14,6 +14,7 @@ use SmartSender\V3\Adapter\Response;
 use SmartSender\V3\BannedEmail\BannedEmail;
 use SmartSender\V3\BannedEmail\Pagination;
 use SmartSender\V3\Contact\Contact;
+use SmartSender\V3\ContactList\Variable;
 use SmartSender\V3\Exceptions\SmartSenderException;
 use SmartSender\V3\Mailer\Email;
 use SmartSender\V3\Mailer\TriggerEmail;
@@ -197,6 +198,13 @@ class SmartSender
         return isset($parsed['result']) ? boolval($parsed['result']) : false;
     }
 
+    /**
+     * @param string $contactListId
+     * @param array  $contacts
+     *
+     * @return bool
+     * @throws SmartSenderException
+     */
     public function addContacts(string $contactListId, array $contacts = []): bool
     {
         $request = [
@@ -220,6 +228,14 @@ class SmartSender
         return isset($parsed['result']) ? boolval($parsed['result']) : false;
     }
 
+    /**
+     * @param string $contactListId
+     * @param array  $contacts
+     * @param bool   $upsert
+     *
+     * @return bool
+     * @throws SmartSenderException
+     */
     public function updateContacts(string $contactListId, array $contacts = [], bool $upsert = false): bool
     {
         $request = [
@@ -244,6 +260,12 @@ class SmartSender
         return isset($parsed['result']) ? boolval($parsed['result']) : false;
     }
 
+    /**
+     * @param string $contactListId
+     * @param array  $contacts
+     *
+     * @return bool
+     */
     public function removeContacts(string $contactListId, array $contacts = []): bool
     {
         /** @var Response $response */
@@ -251,6 +273,28 @@ class SmartSender
             'contactListId' => $contactListId,
             'emails'        => $contacts,
         ]);
+
+        $parsed = $response->getParsedBody();
+
+        return isset($parsed['result']) ? boolval($parsed['result']) : false;
+    }
+
+    public function addVariablesToContactList(string $contactListId, array $variables = []): bool
+    {
+        $request = [
+            'contactListId' => $contactListId,
+            'variablesMetadata' => [],
+        ];
+
+        foreach($variables as $variable) {
+            if (!$variable instanceof Variable) {
+                throw new SmartSenderException('variable must be an instance of ' . Variable::class);
+            }
+            $request['variablesMetadata'][] = $variable->__toArray();
+        }
+
+        /** @var Response $response */
+        $response = $this->adapter->request('contact-list/variables/add', $request);
 
         $parsed = $response->getParsedBody();
 
