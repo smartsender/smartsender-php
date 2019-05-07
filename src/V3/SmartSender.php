@@ -243,4 +243,19 @@ class SmartSender
 
         return isset($parsed['result']) ? boolval($parsed['result']) : false;
     }
+
+    public function removeContacts(string $contactListId, array $contacts = []): bool
+    {
+        /** @var Response $response */
+        $response = $this->adapter->request('contacts/remove', [
+            'contactListId' => $contactListId,
+            'emails'        => $contacts,
+        ]);
+
+        $parsed = $response->getParsedBody();
+
+        return isset($parsed['result']) ? boolval($parsed['result']) : false;
+    }
+
+
 }
