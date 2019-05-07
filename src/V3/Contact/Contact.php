@@ -27,8 +27,8 @@ class Contact
     /** @var string */
     protected $externalId = '';
 
-    /** @var bool */
-    protected $isActive = false;
+    /** @var bool|null */
+    protected $isActive;
 
     /** @var Variable[] */
     protected $variables = [];
@@ -171,11 +171,11 @@ class Contact
     {
         $array = [
             'contact'     => $this->contact,
-            'email'       => $this->getEmail(),
-            'name'        => $this->getName(),
-            'externalId'  => $this->getExternalId(),
             'active'      => $this->isActive(),
-            'phoneNumber' => $this->getPhone(),
+            'email'       => $this->getEmail() ?: null,
+            'name'        => $this->getName() ?: null,
+            'externalId'  => $this->getExternalId() ?: null,
+            'phoneNumber' => $this->getPhone() ?: null,
             'variables'   => [],
         ];
 

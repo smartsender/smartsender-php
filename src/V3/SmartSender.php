@@ -197,12 +197,6 @@ class SmartSender
         return isset($parsed['result']) ? boolval($parsed['result']) : false;
     }
 
-    /**
-     * @param string    $contactListId
-     * @param Contact[] $contacts
-     *
-     * @return bool
-     */
     public function addContacts(string $contactListId, array $contacts = []): bool
     {
         $request = [
@@ -210,12 +204,40 @@ class SmartSender
             'contacts'      => [],
         ];
 
-        foreach($contacts as $contact) {
+        foreach ($contacts as $contact) {
+            if (!$contact instanceof Contact) {
+                throw new SmartSenderException('contact must be an instance of ' . Contact::class);
+            }
+
             $request['contacts'][] = $contact->__toArray();
         }
 
         /** @var Response $response */
         $response = $this->adapter->request('contacts/add', $request);
+
+        $parsed = $response->getParsedBody();
+
+        return isset($parsed['result']) ? boolval($parsed['result']) : false;
+    }
+
+    public function updateContacts(string $contactListId, array $contacts = [], bool $upsert = false): bool
+    {
+        $request = [
+            'contactListId' => $contactListId,
+            'upsert'        => $upsert,
+            'contacts'      => [],
+        ];
+
+        foreach ($contacts as $contact) {
+            if (!$contact instanceof Contact) {
+                throw new SmartSenderException('contact must be an instance of ' . Contact::class);
+            }
+
+            $request['contacts'][] = $contact->__toArray();
+        }
+
+        /** @var Response $response */
+        $response = $this->adapter->request('contacts/update', $request);
 
         $parsed = $response->getParsedBody();
 
