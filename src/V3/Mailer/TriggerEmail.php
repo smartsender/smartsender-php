@@ -9,7 +9,7 @@
 namespace SmartSender\V3\Mailer;
 
 
-use SmartSender\V3\ContactList\Variable;
+use SmartSender\V3\Contact\Variable;
 
 class TriggerEmail
 {

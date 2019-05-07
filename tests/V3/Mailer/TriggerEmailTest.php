@@ -10,7 +10,7 @@ namespace SmartSender\Tests\V3\Mailer;
 
 
 use PHPUnit\Framework\TestCase;
-use SmartSender\V3\ContactList\Variable;
+use SmartSender\V3\Contact\Variable;
 use SmartSender\V3\Mailer\TriggerEmail;
 
 class TriggerEmailTest extends TestCase

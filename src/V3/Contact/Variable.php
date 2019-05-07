@@ -6,7 +6,7 @@
  * Time: 12:42
  */
 
-namespace SmartSender\V3\ContactList;
+namespace SmartSender\V3\Contact;
 
 
 class Variable

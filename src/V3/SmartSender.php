@@ -13,12 +13,14 @@ use SmartSender\V3\Adapter\AdapterInterface;
 use SmartSender\V3\Adapter\Response;
 use SmartSender\V3\BannedEmail\BannedEmail;
 use SmartSender\V3\BannedEmail\Pagination;
+use SmartSender\V3\Contact\Contact;
 use SmartSender\V3\Exceptions\SmartSenderException;
 use SmartSender\V3\Mailer\Email;
 use SmartSender\V3\Mailer\TriggerEmail;
 
 class SmartSender
 {
+
     const SUPPORT_EMAIL = 'support@smartsender.io';
 
     /** @var AdapterInterface */
@@ -114,8 +116,8 @@ class SmartSender
             'records' => [],
         ];
 
-        foreach($bannedEmails as $bannedEmail) {
-            if ( !$bannedEmail instanceof BannedEmail) {
+        foreach ($bannedEmails as $bannedEmail) {
+            if (!$bannedEmail instanceof BannedEmail) {
                 throw new SmartSenderException('banned emails must be an instances of ' . BannedEmail::class);
             }
 
@@ -155,7 +157,7 @@ class SmartSender
 
         /** @var Response $response */
         $response = $this->adapter->request('blacklist/find', $pagination->__toArray());
-        $parsed = $response->getParsedBody();
+        $parsed   = $response->getParsedBody();
 
         if (!isset($parsed['data']) || !is_array($parsed['data']) || !isset($parsed['totalCount'])) {
             throw new SmartSenderException("no data in response. Please contact " . self::SUPPORT_EMAIL);
@@ -163,7 +165,7 @@ class SmartSender
 
         $pagination->setTotalCount(intval($parsed['totalCount']));
 
-        foreach($parsed['data'] as $banned) {
+        foreach ($parsed['data'] as $banned) {
             $pagination->addBannedEmail(BannedEmail::createFromArray($banned));
         }
 
@@ -189,6 +191,31 @@ class SmartSender
 
         /** @var Response $response */
         $response = $this->adapter->request('blacklist/remove', $request);
+
+        $parsed = $response->getParsedBody();
+
+        return isset($parsed['result']) ? boolval($parsed['result']) : false;
+    }
+
+    /**
+     * @param string    $contactListId
+     * @param Contact[] $contacts
+     *
+     * @return bool
+     */
+    public function addContacts(string $contactListId, array $contacts = []): bool
+    {
+        $request = [
+            'contactListId' => $contactListId,
+            'contacts'      => [],
+        ];
+
+        foreach($contacts as $contact) {
+            $request['contacts'][] = $contact->__toArray();
+        }
+
+        /** @var Response $response */
+        $response = $this->adapter->request('contacts/add', $request);
 
         $parsed = $response->getParsedBody();
 
