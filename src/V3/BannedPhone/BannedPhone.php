@@ -8,9 +8,6 @@
 
 namespace SmartSender\V3\BannedPhone;
 
-
-use SmartSender\V3\Exceptions\BannedPhoneException;
-
 class BannedPhone
 {
 

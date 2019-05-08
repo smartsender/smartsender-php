@@ -6,7 +6,7 @@
  * Time: 12:12
  */
 
-namespace SmartSender\Tests\V3\Mailer;
+namespace SmartSender\Tests\V3\Email;
 
 
 use PHPUnit\Framework\TestCase;
