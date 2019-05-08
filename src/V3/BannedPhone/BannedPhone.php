@@ -40,13 +40,11 @@ class BannedPhone
      *
      * @param string $phone
      * @param string $type
-     *
-     * @throws BannedPhoneException
      */
     public function __construct(string $phone, string $type)
     {
         if (!in_array($type, self::ALLOWED_TYPES)) {
-            throw new BannedPhoneException("type $type is not allowed");
+            $type = self::TYPE_IMPORT;
         }
 
         $this->phone = $phone;

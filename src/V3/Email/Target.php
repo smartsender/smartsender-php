@@ -6,7 +6,7 @@
  * Time: 19:21
  */
 
-namespace SmartSender\V3\Mailer;
+namespace SmartSender\V3\Email;
 
 
 class Target

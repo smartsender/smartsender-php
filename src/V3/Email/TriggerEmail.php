@@ -6,7 +6,7 @@
  * Time: 19:49
  */
 
-namespace SmartSender\V3\Mailer;
+namespace SmartSender\V3\Email;
 
 
 use SmartSender\V3\Contact\Variable;

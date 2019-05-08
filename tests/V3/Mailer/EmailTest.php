@@ -10,8 +10,8 @@ namespace SmartSender\Tests\V3\Mailer;
 
 
 use PHPUnit\Framework\TestCase;
-use SmartSender\V3\Mailer\Email;
-use SmartSender\V3\Mailer\Target;
+use SmartSender\V3\Email\Email;
+use SmartSender\V3\Email\Target;
 
 class EmailTest extends TestCase
 {
