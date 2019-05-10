@@ -36,7 +36,7 @@ class PhoneBlackList extends BaseClient
         }
 
         /** @var Response $response */
-        $response = $this->adapter->request('phone-blacklist/add', $request);
+        $response = $this->adapter->request('/phone-blacklist/add', $request);
 
         $parsed = $response->getParsedBody();
 
@@ -67,7 +67,7 @@ class PhoneBlackList extends BaseClient
         }
 
         /** @var Response $response */
-        $response = $this->adapter->request('phone-blacklist/find', $pagination->__toArray());
+        $response = $this->adapter->request('/phone-blacklist/find', $pagination->__toArray());
         $parsed   = $response->getParsedBody();
 
         if (!isset($parsed['data']) || !is_array($parsed['data']) || !isset($parsed['totalCount'])) {
@@ -91,7 +91,7 @@ class PhoneBlackList extends BaseClient
     public function remove(string $phone): bool
     {
         /** @var Response $response */
-        $response = $this->adapter->request('phone-blacklist/remove', [
+        $response = $this->adapter->request('/phone-blacklist/remove', [
             'phoneNumber' => $phone,
         ]);
 

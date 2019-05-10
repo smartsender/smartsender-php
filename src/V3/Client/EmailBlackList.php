@@ -37,7 +37,7 @@ class EmailBlackList extends BaseClient
         }
 
         /** @var Response $response */
-        $response = $this->adapter->request('blacklist/add', $request);
+        $response = $this->adapter->request('/blacklist/add', $request);
 
         $parsed = $response->getParsedBody();
 
@@ -68,7 +68,7 @@ class EmailBlackList extends BaseClient
         }
 
         /** @var Response $response */
-        $response = $this->adapter->request('blacklist/find', $pagination->__toArray());
+        $response = $this->adapter->request('/blacklist/find', $pagination->__toArray());
         $parsed   = $response->getParsedBody();
 
         if (!isset($parsed['data']) || !is_array($parsed['data']) || !isset($parsed['totalCount'])) {
@@ -102,7 +102,7 @@ class EmailBlackList extends BaseClient
         }
 
         /** @var Response $response */
-        $response = $this->adapter->request('blacklist/remove', $request);
+        $response = $this->adapter->request('/blacklist/remove', $request);
 
         $parsed = $response->getParsedBody();
 

@@ -31,12 +31,12 @@ class CurlAdapterTest extends TestCase
 
         $accessToken->method('getAuthHeaders')->willReturn(['X-Access-Token-Testing' => 'thisIsTestAccessToken']);
 
-        $this->curlAdapter = new CurlAdapter($accessToken, 'https://httpbin.org/');
+        $this->curlAdapter = new CurlAdapter($accessToken, 'https://httpbin.org');
     }
 
     public function testRequest()
     {
-        $response = $this->curlAdapter->request('anything', ['testParamKey' => 'testParamValue']);
+        $response = $this->curlAdapter->request('/anything', ['testParamKey' => 'testParamValue']);
 
         $this->assertInstanceOf(Response::class, $response);
         $this->assertTrue($response->ok());
