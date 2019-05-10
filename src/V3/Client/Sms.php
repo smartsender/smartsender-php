@@ -11,19 +11,18 @@ namespace SmartSender\V3\Client;
 
 use SmartSender\V3\Adapter\Response;
 use SmartSender\V3\Exceptions\SmartSenderException;
-use SmartSender\V3\Sms\Sms;
 use SmartSender\V3\Sms\TriggerSms;
 
-class SmsClient extends BaseClient
+class Sms extends BaseClient
 {
 
     /**
-     * @param Sms $sms
+     * @param \SmartSender\V3\Sms\Sms $sms
      *
-     * @return Sms
+     * @return \SmartSender\V3\Sms\Sms
      * @throws SmartSenderException
      */
-    public function sendSms(Sms $sms): Sms
+    public function sendSms(\SmartSender\V3\Sms\Sms $sms): \SmartSender\V3\Sms\Sms
     {
         /** @var Response $response */
         $response = $this->adapter->request('sms/send', $sms->__toArray());
