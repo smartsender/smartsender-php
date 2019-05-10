@@ -8,20 +8,29 @@ composer require smartsender/smartsender-php
 
 ## SmartSender API version 3
 
-The SmartSender API can be found [here](https://kb.smartsender.io/).
+The SmartSender API can be found [here](https://kb.smartsender.io/doc/api-documentation/).
 
 ## Getting Started
+
 
 ```php
 $accessToken = new \SmartSender\V3\Auth\AccessToken('putYourAccessTokenHere');
 $adapter = new \SmartSender\V3\Adapter\CurlAdapter($accessToken);
 
 $mailer = new \SmartSender\V3\Client\Mailer($adapter);
-$email = new \SmartSender\V3\Email\Email();
-    // Set parameters of Email
-        ...
-$email = $mailer->sendEmail($email);
-echo $email->getId();
+        
+try {
+    
+    $email = new \SmartSender\V3\Email\Email();
+        // Set parameters of Email
+        // ...
+                    
+    $email = $mailer->sendEmail($email);
+    echo $email->getId();
+    
+} catch(\SmartSender\V3\Exceptions\SmartSenderException $e) {
+    echo $e->getMessage();
+}
 ```
 
 ## SDK Documentation
