@@ -6,6 +6,16 @@
 composer require smartsender/smartsender-php
 ```
 
+or add to your composer.json file next row and then execute "composer install" command
+
+```json
+"require": {
+  ...
+  "smartsender/smartsender-php": ">=0.9.2",
+  ...
+}
+```
+
 ## SmartSender API version 3
 
 The SmartSender API can be found [here](https://kb.smartsender.io/doc/api-documentation/).
