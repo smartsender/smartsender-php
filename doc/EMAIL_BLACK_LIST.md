@@ -37,7 +37,8 @@ echo 'Records offset: ' . $pagination->getOffset() . PHP_EOL;
 foreach ($pagination->getBannedEmails() as $bannedEmail) {
     
     /** @var \SmartSender\V3\BannedEmail\BannedEmail $bannedEmail */
-    echo $bannedEmail->getEmail() . ' ' . $bannedEmail->getType() . ' ' . $bannedEmail->getExpireAt()->format('Y-m-d H:i:s') . PHP_EOL;
+    echo $bannedEmail->getEmail() . ' ' . $bannedEmail->getType() . ' ' . $bannedEmail->getExpireAt()
+                                                                                      ->format('Y-m-d H:i:s') . PHP_EOL;
 }
 ```
 
