@@ -49,5 +49,6 @@ try {
 - [x] [Email Black List](/doc/EMAIL_BLACK_LIST.md)
 - [x] [Phone Black List](/doc/PHONE_BLACK_LIST.md)
 - [x] [Contacts and Contact Lists](/doc/CONTACT_LIST.md)
+- [x] [Global Variables](/doc/GLOBAL_VARIABLES.md)
 
 Note that this repository is currently under development, additional classes and endpoints being actively added.
