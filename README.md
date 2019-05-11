@@ -47,5 +47,6 @@ try {
 
 - [x] [Mailer](/doc/MAILER.md)
 - [x] [Email Black List](/doc/EMAIL_BLACK_LIST.md)
+- [x] [Phone Black List](/doc/PHONE_BLACK_LIST.md)
 
 Note that this repository is currently under development, additional classes and endpoints being actively added.
