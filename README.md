@@ -21,8 +21,6 @@ or add to your composer.json file next row and then execute "composer install" c
 The SmartSender API can be found [here](https://kb.smartsender.io/doc/api-documentation/).
 
 ## Getting Started
-
-
 ```php
 $accessToken = new \SmartSender\V3\Auth\AccessToken('putYourAccessTokenHere');
 $adapter = new \SmartSender\V3\Adapter\CurlAdapter($accessToken);
@@ -30,6 +28,8 @@ $adapter = new \SmartSender\V3\Adapter\CurlAdapter($accessToken);
 $mailer = new \SmartSender\V3\Client\Mailer($adapter);
         
 try {
+    
+    // Almost all declared methods can throw an Exception, so you can catch it
     
     $email = new \SmartSender\V3\Email\Email();
         // Set parameters of Email
@@ -46,5 +46,6 @@ try {
 ## SDK Documentation
 
 - [x] [Mailer](/doc/MAILER.md)
+- [x] [Email Black List](/doc/EMAIL_BLACK_LIST.md)
 
 Note that this repository is currently under development, additional classes and endpoints being actively added.

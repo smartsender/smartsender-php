@@ -12,6 +12,16 @@ namespace SmartSender\V3\BannedEmail;
 class BannedEmail
 {
 
+    const TYPE_HARD         = 'hard';
+    const TYPE_COMPLAINT    = 'complaint';
+    const TYPE_UNSUBSCRIBED = 'list-unsubscribe';
+
+    const ALLOWED_TYPES = [
+        self::TYPE_HARD,
+        self::TYPE_COMPLAINT,
+        self::TYPE_UNSUBSCRIBED,
+    ];
+
     /** @var string|null */
     protected $email;
 
@@ -142,20 +152,20 @@ class BannedEmail
             'type'      => $this->getType(),
             'rawLog'    => $this->getRawLog(),
             'createdAt' => !$this->getCreatedAt() ?: $this->getCreatedAt()->format('Y-m-d H:i:s'),
-            'expireAt' => !$this->getExpireAt() ?: $this->getExpireAt()->format('Y-m-d H:i:s'),
+            'expireAt'  => !$this->getExpireAt() ?: $this->getExpireAt()->format('Y-m-d H:i:s'),
         ];
     }
 
     public static function createFromArray(array $array): BannedEmail
     {
         $bannedEmail = new static();
-        if(isset($array['email']) && !empty($array['email'])) {
+        if (isset($array['email']) && !empty($array['email'])) {
             $bannedEmail->setEmail(strval($array['email']));
         }
-        if(isset($array['type']) && !empty($array['type'])) {
+        if (isset($array['type']) && !empty($array['type'])) {
             $bannedEmail->setType(strval($array['type']));
         }
-        if(isset($array['rawLog']) && !empty($array['rawLog'])) {
+        if (isset($array['rawLog']) && !empty($array['rawLog'])) {
             $bannedEmail->setRawLog(strval($array['rawLog']));
         }
         if (isset($array['createdAt'])

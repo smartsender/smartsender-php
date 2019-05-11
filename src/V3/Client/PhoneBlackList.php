@@ -12,6 +12,7 @@ namespace SmartSender\V3\Client;
 use SmartSender\V3\Adapter\Response;
 use SmartSender\V3\BannedPhone\BannedPhone;
 use SmartSender\V3\BannedPhone\BannedPhonePagination;
+use SmartSender\V3\Exceptions\BannedPhoneException;
 use SmartSender\V3\Exceptions\SmartSenderException;
 
 class PhoneBlackList extends BaseClient
@@ -32,6 +33,11 @@ class PhoneBlackList extends BaseClient
             if (!$bannedPhone instanceof BannedPhone) {
                 throw new SmartSenderException('bannedPhone must be an instance of ' . BannedPhone::class);
             }
+
+            if (!in_array($bannedPhone->getType(), BannedPhone::ALLOWED_TYPES)) {
+                throw new BannedPhoneException('type ' . $bannedPhone->getType() . ' is not allowed');
+            }
+
             $request['records'][] = $bannedPhone->__toArray();
         }
 

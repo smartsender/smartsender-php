@@ -12,6 +12,7 @@ namespace SmartSender\V3\Client;
 use SmartSender\V3\Adapter\Response;
 use SmartSender\V3\BannedEmail\BannedEmail;
 use SmartSender\V3\BannedEmail\BannedEmailPagination;
+use SmartSender\V3\Exceptions\BannedEmailException;
 use SmartSender\V3\Exceptions\SmartSenderException;
 
 class EmailBlackList extends BaseClient
@@ -31,6 +32,10 @@ class EmailBlackList extends BaseClient
         foreach ($bannedEmails as $bannedEmail) {
             if (!$bannedEmail instanceof BannedEmail) {
                 throw new SmartSenderException('banned emails must be an instances of ' . BannedEmail::class);
+            }
+
+            if (!in_array($bannedEmail->getType(), BannedEmail::ALLOWED_TYPES)) {
+                throw new BannedEmailException('type ' . $bannedEmail->getType() . ' is not allowed');
             }
 
             $request['records'][] = $bannedEmail->__toArray();
