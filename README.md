@@ -52,4 +52,7 @@ try {
 - [x] [Phone Black List](/doc/PHONE_BLACK_LIST.md)
 - [x] [Global Variables](/doc/GLOBAL_VARIABLES.md)
 
+If you don't want to deal with objects and all you need is arrays of parameters, you can use adapter's request() method in conjunction with [SmartSender API documentation](https://kb.smartsender.io/doc/api-documentation/)
+Example you can find [here](/doc/ADAPTER_REQUEST.md)
+
 Note that this repository is currently under development, additional classes and endpoints being actively added.
