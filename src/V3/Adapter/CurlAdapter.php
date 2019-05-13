@@ -55,11 +55,17 @@ class CurlAdapter implements AdapterInterface
 
             $parts = explode("\r\n\r\n", $response, 3);
             list($head, $responseBody) = ($parts[0] == 'HTTP/1.1 100 Continue')
-                ? [$parts[1], $parts[2]]
-                : [$parts[0], $parts[1]];
+                ? [
+                    $parts[1],
+                    $parts[2],
+                ]
+                : [
+                    $parts[0],
+                    $parts[1],
+                ];
 
             $responseHeaders = [];
-            $headerLines = explode("\r\n", $head);
+            $headerLines     = explode("\r\n", $head);
             array_shift($headerLines);
             foreach ($headerLines as $line) {
                 list($key, $value) = explode(':', $line, 2);
@@ -71,7 +77,7 @@ class CurlAdapter implements AdapterInterface
 
             // Parse SmartSender errors
             $parsed = $responseObj->getParsedBody();
-            if(!$parsed) {
+            if (!$parsed) {
                 throw new AdapterException("Response parsing error. Response: $response");
             }
 
@@ -87,7 +93,7 @@ class CurlAdapter implements AdapterInterface
 
             return $responseObj;
 
-        } catch(AdapterException $e) {
+        } catch (AdapterException $e) {
             if (isset($ch) && is_resource($ch)) {
                 curl_close($ch);
             }
@@ -103,8 +109,9 @@ class CurlAdapter implements AdapterInterface
             CURLOPT_CUSTOMREQUEST  => 'POST',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HEADER         => true,
+            CURLOPT_SSL_VERIFYPEER => false,
 
-            CURLOPT_URL => $this->baseUri . $url,
+            CURLOPT_URL            => $this->baseUri . $url,
             CURLOPT_INFILESIZE     => null,
             CURLOPT_HTTPHEADER     => [
                 'Content-Type: application/json',
