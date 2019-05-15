@@ -10,6 +10,7 @@ namespace SmartSender\V3\Adapter;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Psr\Http\Message\ResponseInterface;
 use SmartSender\V3\Auth\AccessToken;
 
 class GuzzleAdapter implements AdapterInterface
@@ -53,17 +54,17 @@ class GuzzleAdapter implements AdapterInterface
                 'json' => $params,
             ]);
 
-            $libraryResponse = new Response($response->getStatusCode(), $response->getHeaders(),
-                $response->getBody()->getContents());
+            return $this->createLibraryResponse($response);
         } catch (ClientException $e) {
-            $response = $e->getResponse();
-
-            $libraryResponse = new Response($response->getStatusCode(), $response->getHeaders(),
-                $response->getBody()->getContents());
+            return $this->createLibraryResponse($e->getResponse());
+        } catch (\Throwable $e) {
+            throw new \RuntimeException($e->getMessage());
         }
+    }
 
-        return $libraryResponse;
-
+    protected function createLibraryResponse(ResponseInterface $response)
+    {
+        return new Response($response->getStatusCode(), $response->getHeaders(), $response->getBody()->getContents());
     }
 
 }
