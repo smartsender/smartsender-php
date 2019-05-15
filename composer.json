@@ -21,6 +21,9 @@
       "email": "kirill@smartsender.io"
     }
   ],
+  "suggest": {
+    "guzzlehttp/guzzle": "For using a power of Guzzle (>=6.0)"
+  },
   "require": {
     "php": ">=7.1",
     "ext-curl": "*",
