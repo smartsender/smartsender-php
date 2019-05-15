@@ -12,6 +12,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\ResponseInterface;
 use SmartSender\V3\Auth\AccessToken;
+use SmartSender\V3\Exceptions\AdapterException;
 
 class GuzzleAdapter implements AdapterInterface
 {
@@ -22,17 +23,20 @@ class GuzzleAdapter implements AdapterInterface
     /** @var AccessToken */
     protected $accessToken;
 
-    protected $baseUri;
+    /** @var string */
+    protected $baseUri = 'https://api.smartsender.io';
 
 
     public function __construct(AccessToken $accessToken, string $baseUri = null, array $options = [])
     {
+        if (!is_null($baseUri)) {
+            $this->baseUri = $baseUri;
+        }
         $this->accessToken = $accessToken;
-        $this->baseUri     = $baseUri;
         $this->client      = $this->createClient($options);
     }
 
-    protected function createClient(array $options = [])
+    protected function createClient(array $options = []): Client
     {
         $accessHeaders = $this->accessToken->getAuthHeaders();
         $headers       = isset($options['headers']) && is_array($options['headers']) ? array_merge($options['headers'],
@@ -46,9 +50,8 @@ class GuzzleAdapter implements AdapterInterface
         return new Client($options);
     }
 
-    public function request(string $url, array $params = [])
+    public function request(string $url, array $params = []): Response
     {
-
         try {
             $response = $this->client->post($url, [
                 'json' => $params,
@@ -56,7 +59,7 @@ class GuzzleAdapter implements AdapterInterface
 
             return $this->createLibraryResponse($response);
         } catch (ClientException $e) {
-            return $this->createLibraryResponse($e->getResponse());
+            throw new AdapterException($e->getMessage(), $e->getCode());
         }
     }
 

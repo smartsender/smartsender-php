@@ -17,24 +17,23 @@ class CurlAdapter implements AdapterInterface
 
     const DEFAULT_TIMEOUT = 10;
 
-    protected $baseUri;
+    /** @var string */
+    protected $baseUri = 'https://api.smartsender.io';
 
+    /** @var array */
     protected $authHeaders = [];
 
 
     public function __construct(AccessToken $accessToken, string $baseUri = null)
     {
-
-        if ($baseUri === null) {
-            $baseUri = 'https://api.smartsender.io';
+        if (!is_null($baseUri)) {
+            $this->baseUri = $baseUri;
         }
-
-        $this->baseUri = $baseUri;
 
         $this->authHeaders = $accessToken->getAuthHeaders();
     }
 
-    public function request(string $url, array $params = [])
+    public function request(string $url, array $params = []): Response
     {
 
         try {

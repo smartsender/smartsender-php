@@ -16,5 +16,5 @@ interface AdapterInterface
 
     public function __construct(AccessToken $accessToken, string $baseUri = null);
 
-    public function request(string $url, array $params = []);
+    public function request(string $url, array $params = []): Response;
 }

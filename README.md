@@ -11,7 +11,7 @@ or add to your composer.json file next row and then execute "composer install" c
 ```json
 "require": {
   ...
-  "smartsender/smartsender-php": ">=0.9.2",
+  "smartsender/smartsender-php": ">=0.9.4",
   ...
 }
 ```

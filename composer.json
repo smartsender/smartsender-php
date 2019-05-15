@@ -2,7 +2,7 @@
   "name": "smartsender/smartsender-php",
   "description": "PHP client for SmartSender API v3",
   "type": "library",
-  "version": "0.9.2",
+  "version": "0.9.4",
   "homepage": "http://github.com/smartsender/smartsender-php",
   "license": "MIT",
   "keywords": [
