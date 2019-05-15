@@ -5,7 +5,7 @@ $accessToken = new \SmartSender\V3\Auth\AccessToken('putYourAccessTokenHere');
 $adapter     = new \SmartSender\V3\Adapter\CurlAdapter($accessToken);
 
 /** @var \SmartSender\V3\Adapter\Response $response */
-$response = $adapter->request("/mailer/send", [
+$response = $adapter->request("/v3/mailer/send", [
     'from' => [
         'email' => 'name@yourdomain.com',
         'name' => 'Your Name',
