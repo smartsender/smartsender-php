@@ -57,8 +57,6 @@ class GuzzleAdapter implements AdapterInterface
             return $this->createLibraryResponse($response);
         } catch (ClientException $e) {
             return $this->createLibraryResponse($e->getResponse());
-        } catch (\Throwable $e) {
-            throw new \RuntimeException($e->getMessage());
         }
     }
 
