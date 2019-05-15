@@ -25,7 +25,7 @@ class Mailer extends BaseClient
     public function sendEmail(Email $email): Email
     {
         /** @var Response $response */
-        $response = $this->adapter->request('/mailer/send', $email->__toArray());
+        $response = $this->adapter->request('/v3/mailer/send', $email->__toArray());
 
         $parsed = $response->getParsedBody();
         if (!isset($parsed['messageId']) || empty($parsed['messageId'])) {
@@ -46,7 +46,7 @@ class Mailer extends BaseClient
     public function sendTriggerEmail(TriggerEmail $triggerEmail): TriggerEmail
     {
         /** @var Response $response */
-        $response = $this->adapter->request('/mailer/trigger', $triggerEmail->__toArray());
+        $response = $this->adapter->request('/v3/mailer/trigger', $triggerEmail->__toArray());
 
         $parsed = $response->getParsedBody();
         if (!isset($parsed['messageId']) || empty($parsed['messageId'])) {
@@ -67,7 +67,7 @@ class Mailer extends BaseClient
     public function getEmailInfo(array $ids): array
     {
         /** @var Response $response */
-        $response = $this->adapter->request('/mailer/info', ['ids' => $ids]);
+        $response = $this->adapter->request('/v3/mailer/info', ['ids' => $ids]);
 
         $parsed = $response->getParsedBody();
         if (!isset($parsed['emails']) || !is_array($parsed['emails'])) {

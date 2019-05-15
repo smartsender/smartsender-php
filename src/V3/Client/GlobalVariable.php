@@ -22,7 +22,7 @@ class GlobalVariable extends BaseClient
     public function create(\SmartSender\V3\GlobalVariable\GlobalVariable $globalVariable): bool
     {
         /** @var Response $response */
-        $response = $this->adapter->request('/global-variables/create', $globalVariable->__toArray());
+        $response = $this->adapter->request('/v3/global-variables/create', $globalVariable->__toArray());
 
         $parsed = $response->getParsedBody();
 
@@ -37,7 +37,7 @@ class GlobalVariable extends BaseClient
     public function findOne(string $name): \SmartSender\V3\GlobalVariable\GlobalVariable
     {
         /** @var Response $response */
-        $response = $this->adapter->request('/global-variables/create', [
+        $response = $this->adapter->request('/v3/global-variables/create', [
             'name' => $name,
         ]);
 
@@ -50,7 +50,7 @@ class GlobalVariable extends BaseClient
     public function all(): array
     {
         /** @var Response $response */
-        $response = $this->adapter->request('/global-variables/all');
+        $response = $this->adapter->request('/v3/global-variables/all');
 
         $globalVariables = [];
         foreach($response->getParsedBody() as $globalVariable) {
@@ -68,7 +68,7 @@ class GlobalVariable extends BaseClient
     public function update(\SmartSender\V3\GlobalVariable\GlobalVariable $globalVariable): bool
     {
         /** @var Response $response */
-        $response = $this->adapter->request('/global-variables/update', $globalVariable->__toArray());
+        $response = $this->adapter->request('/v3/global-variables/update', $globalVariable->__toArray());
 
         $parsed = $response->getParsedBody();
 
@@ -83,7 +83,7 @@ class GlobalVariable extends BaseClient
     public function remove(\SmartSender\V3\GlobalVariable\GlobalVariable $globalVariable): bool
     {
         /** @var Response $response */
-        $response = $this->adapter->request('/global-variables/remove', $globalVariable->__toArray());
+        $response = $this->adapter->request('/v3/global-variables/remove', $globalVariable->__toArray());
 
         $parsed = $response->getParsedBody();
 

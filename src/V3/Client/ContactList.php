@@ -39,7 +39,7 @@ class ContactList extends BaseClient
         }
 
         /** @var Response $response */
-        $response = $this->adapter->request('/contacts/add', $request);
+        $response = $this->adapter->request('/v3/contacts/add', $request);
 
         $parsed = $response->getParsedBody();
 
@@ -71,7 +71,7 @@ class ContactList extends BaseClient
         }
 
         /** @var Response $response */
-        $response = $this->adapter->request('/contacts/update', $request);
+        $response = $this->adapter->request('/v3/contacts/update', $request);
 
         $parsed = $response->getParsedBody();
 
@@ -87,7 +87,7 @@ class ContactList extends BaseClient
     public function removeContacts(string $contactListId, array $contacts = []): bool
     {
         /** @var Response $response */
-        $response = $this->adapter->request('/contacts/remove', [
+        $response = $this->adapter->request('/v3/contacts/remove', [
             'contactListId' => $contactListId,
             'emails'        => $contacts,
         ]);
@@ -119,7 +119,7 @@ class ContactList extends BaseClient
         }
 
         /** @var Response $response */
-        $response = $this->adapter->request('/contact-list/variables/add', $request);
+        $response = $this->adapter->request('/v3/contact-list/variables/add', $request);
 
         $parsed = $response->getParsedBody();
 

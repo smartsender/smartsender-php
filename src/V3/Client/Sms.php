@@ -25,7 +25,7 @@ class Sms extends BaseClient
     public function sendSms(\SmartSender\V3\Sms\Sms $sms): \SmartSender\V3\Sms\Sms
     {
         /** @var Response $response */
-        $response = $this->adapter->request('/sms/send', $sms->__toArray());
+        $response = $this->adapter->request('/v3/sms/send', $sms->__toArray());
 
         $parsed = $response->getParsedBody();
         if (!isset($parsed['sms_id']) || empty($parsed['sms_id'])) {
@@ -46,7 +46,7 @@ class Sms extends BaseClient
     public function sendTriggerSms(TriggerSms $triggerSms): TriggerSms
     {
         /** @var Response $response */
-        $response = $this->adapter->request('/sms/trigger', $triggerSms->__toArray());
+        $response = $this->adapter->request('/v3/sms/trigger', $triggerSms->__toArray());
 
         $parsed = $response->getParsedBody();
         if (!isset($parsed['sms_id']) || empty($parsed['sms_id'])) {
@@ -67,7 +67,7 @@ class Sms extends BaseClient
     public function getSmsInfo(array $ids): array
     {
         /** @var Response $response */
-        $response = $this->adapter->request('/sms/info', ['ids' => $ids]);
+        $response = $this->adapter->request('/v3/sms/info', ['ids' => $ids]);
 
         $parsed = $response->getParsedBody();
         if (!isset($parsed['data']) || !is_array($parsed['data'])) {

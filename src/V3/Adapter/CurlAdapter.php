@@ -26,7 +26,7 @@ class CurlAdapter implements AdapterInterface
     {
 
         if ($baseUri === null) {
-            $baseUri = 'https://api.smartsender.io/v3';
+            $baseUri = 'https://api.smartsender.io';
         }
 
         $this->baseUri = $baseUri;
