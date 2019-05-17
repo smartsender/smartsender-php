@@ -24,7 +24,7 @@ class SmsTest extends TestCase
         $sms->setId('testId');
         $sms->setStatus('testStatus');
         $sms->setDomain('example.com');
-        $sms->setTo('+12341111111');
+        $sms->setPhoneNumber('+12341111111');
         $sms->setFromName('testFromName');
         $sms->setText('testText');
         $sms->setCreatedAt($date);
@@ -36,7 +36,7 @@ class SmsTest extends TestCase
         $this->assertArrayHasKey('id', $array);
         $this->assertArrayHasKey('status', $array);
         $this->assertArrayHasKey('domain', $array);
-        $this->assertArrayHasKey('to', $array);
+        $this->assertArrayHasKey('phoneNumber', $array);
         $this->assertArrayHasKey('fromName', $array);
         $this->assertArrayHasKey('text', $array);
         $this->assertArrayHasKey('tags', $array);
@@ -45,7 +45,7 @@ class SmsTest extends TestCase
         $this->assertEquals('testId', $array['id']);
         $this->assertEquals('testStatus', $array['status']);
         $this->assertEquals('example.com', $array['domain']);
-        $this->assertEquals('+12341111111', $array['to']);
+        $this->assertEquals('+12341111111', $array['phoneNumber']);
         $this->assertEquals('testFromName', $array['fromName']);
         $this->assertEquals('testText', $array['text']);
         $this->assertEquals($date->format('Y-m-d H:i:s'), $array['createdAt']);
@@ -57,12 +57,12 @@ class SmsTest extends TestCase
     public function testCreateFromArray()
     {
         $sms = Sms::createFromArray([
-            'id'        => 'testId',
-            'status'    => 'testStatus',
-            'text'      => 'testText',
-            'to'        => '+12341111111',
-            'from'      => 'testFrom',
-            'createdAt' => '2000-01-02 03:04:05',
+            'id'          => 'testId',
+            'status'      => 'testStatus',
+            'text'        => 'testText',
+            'phoneNumber' => '+12341111111',
+            'fromName'    => 'testFrom',
+            'createdAt'   => '2000-01-02 03:04:05',
         ]);
 
         $this->assertInstanceOf(Sms::class, $sms);
@@ -71,7 +71,7 @@ class SmsTest extends TestCase
         $this->assertEquals('testStatus', $sms->getStatus());
         $this->assertEquals('testText', $sms->getText());
         $this->assertEquals('testFrom', $sms->getFromName());
-        $this->assertEquals('+12341111111', $sms->getTo());
+        $this->assertEquals('+12341111111', $sms->getPhoneNumber());
         $this->assertEquals('2000-01-02 03:04:05', $sms->getCreatedAt()->format('Y-m-d H:i:s'));
         $this->assertEquals('UTC', $sms->getCreatedAt()->getTimezone()->getName());
     }

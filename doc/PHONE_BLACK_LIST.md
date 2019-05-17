@@ -30,7 +30,7 @@ echo 'Records offset: ' . $pagination->getOffset() . PHP_EOL;
 foreach ($pagination->getBannedPhones() as $bannedPhone) {
 
     /** @var \SmartSender\V3\BannedPhone\BannedPhone $bannedPhone */
-    echo $bannedPhone->getPhone() . ' ' . $bannedPhone->getType() . ' ' . $bannedPhone->getCreatedAt()
+    echo $bannedPhone->getPhone() . ' ' . $bannedPhone->getRejectType() . ' ' . $bannedPhone->getCreatedAt()
                                                                                       ->format('Y-m-d H:i:s') . PHP_EOL;
 }
 ```

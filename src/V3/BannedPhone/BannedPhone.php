@@ -27,7 +27,7 @@ class BannedPhone
     protected $phone = '';
 
     /** @var string */
-    protected $type = '';
+    protected $rejectType = '';
 
     /** @var \DateTime|null */
     protected $createdAt;
@@ -38,14 +38,14 @@ class BannedPhone
      * @param string $phone
      * @param string $type
      */
-    public function __construct(string $phone, string $type)
+    public function __construct(string $phone, string $rejectType)
     {
-        if (!in_array($type, self::ALLOWED_TYPES)) {
-            $type = self::TYPE_IMPORT;
+        if (!in_array($rejectType, self::ALLOWED_TYPES)) {
+            $rejectType = self::TYPE_IMPORT;
         }
 
-        $this->phone = $phone;
-        $this->type  = $type;
+        $this->phone      = $phone;
+        $this->rejectType = $rejectType;
     }
 
     /**
@@ -71,19 +71,19 @@ class BannedPhone
     /**
      * @return string
      */
-    public function getType(): string
+    public function getRejectType(): string
     {
-        return $this->type;
+        return $this->rejectType;
     }
 
     /**
-     * @param string $type
+     * @param string $rejectType
      *
      * @return BannedPhone
      */
-    public function setType(string $type): BannedPhone
+    public function setRejectType(string $rejectType): BannedPhone
     {
-        $this->type = $type;
+        $this->rejectType = $rejectType;
 
         return $this;
     }
@@ -112,7 +112,7 @@ class BannedPhone
     {
         return [
             'phoneNumber' => $this->getPhone(),
-            'rejectType'  => $this->getType(),
+            'rejectType'  => $this->getRejectType(),
             'createdAt'   => !$this->getCreatedAt() ?: $this->getCreatedAt()->format('Y-m-d H:i:s'),
         ];
     }

@@ -21,7 +21,7 @@ class ContactTest extends TestCase
 
         $this->assertEquals('contact@example.com', $contact->getEmail());
 
-        $contact->setPhone('+12341111111');
+        $contact->setPhoneNumber('+12341111111');
         $contact->setName('testName');
         $contact->setIsActive(true);
         $contact->setExternalId('testExternalId');

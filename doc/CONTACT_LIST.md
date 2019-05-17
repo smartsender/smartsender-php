@@ -10,7 +10,7 @@ $contactList     = new \SmartSender\V3\Client\ContactList($adapter);
 $contact = new SmartSender\V3\Contact\Contact('first@example.com');
 $contact->setIsActive(true);                        // optional
 $contact->setName('First');                         // optional
-$contact->setPhone('+12341111111');                 // optional
+$contact->setPhoneNumber('+12341111111');           // optional
 $contact->setExternalId('contactIdInYourSystem');   // optional
 $contact->addVariable(new \SmartSender\V3\Contact\Variable('varName', 'varValue')); // optional. Variable must be defined in contact list.
 

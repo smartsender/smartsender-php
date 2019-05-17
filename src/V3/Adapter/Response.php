@@ -136,7 +136,8 @@ class Response
     /**
      * @return bool
      */
-    public function ok() {
+    public function ok()
+    {
 
         return $this->status < 400;
     }

@@ -20,7 +20,7 @@ class BannedEmailPagination extends Pagination
     protected $email;
 
     /** @var string|null */
-    protected $type;
+    protected $rejectType;
 
     /**
      * @return array
@@ -65,19 +65,19 @@ class BannedEmailPagination extends Pagination
     /**
      * @return string|null
      */
-    public function getType()
+    public function getRejectType()
     {
-        return $this->type;
+        return $this->rejectType;
     }
 
     /**
-     * @param string $type
+     * @param string $rejectType
      *
      * @return Pagination
      */
-    public function setType(string $type): Pagination
+    public function setRejectType(string $rejectType): Pagination
     {
-        $this->type = $type;
+        $this->rejectType = $rejectType;
 
         return $this;
     }
@@ -85,10 +85,10 @@ class BannedEmailPagination extends Pagination
     public function __toArray(): array
     {
         $array = [
-            'offset' => $this->offset,
-            'limit'  => $this->limit,
-            'email'  => $this->email,
-            'type'   => $this->type,
+            'offset'     => $this->offset,
+            'limit'      => $this->limit,
+            'email'      => $this->email,
+            'rejectType' => $this->rejectType,
         ];
 
         return $array;

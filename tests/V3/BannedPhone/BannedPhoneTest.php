@@ -45,7 +45,7 @@ class BannedPhoneTest extends TestCase
 
         $this->assertInstanceOf(BannedPhone::class, $bannedPhone);
         $this->assertEquals('+12341111111', $bannedPhone->getPhone());
-        $this->assertEquals(BannedPhone::TYPE_IMPORT, $bannedPhone->getType());
+        $this->assertEquals(BannedPhone::TYPE_IMPORT, $bannedPhone->getRejectType());
         $this->assertEquals('2000-01-01 01:02:03', $bannedPhone->getCreatedAt()->format('Y-m-d H:i:s'));
         $this->assertEquals('UTC', $bannedPhone->getCreatedAt()->getTimezone()->getName());
     }

@@ -20,7 +20,7 @@ class BannedPhonePagination extends Pagination
     protected $phone;
 
     /** @var string|null */
-    protected $type;
+    protected $rejectType;
 
     /**
      * @return array
@@ -65,19 +65,19 @@ class BannedPhonePagination extends Pagination
     /**
      * @return string|null
      */
-    public function getType()
+    public function getRejectType()
     {
-        return $this->type;
+        return $this->rejectType;
     }
 
     /**
-     * @param string $type
+     * @param string $rejectType
      *
      * @return BannedPhonePagination
      */
-    public function setType(string $type): BannedPhonePagination
+    public function setRejectType(string $rejectType): BannedPhonePagination
     {
-        $this->type = $type;
+        $this->rejectType = $rejectType;
 
         return $this;
     }
@@ -88,7 +88,7 @@ class BannedPhonePagination extends Pagination
             'offset'      => $this->offset,
             'limit'       => $this->limit,
             'phoneNumber' => $this->phone,
-            'rejectType'  => $this->type,
+            'rejectType'  => $this->rejectType,
         ];
 
         return $array;

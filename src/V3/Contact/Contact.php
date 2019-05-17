@@ -22,7 +22,7 @@ class Contact
     protected $email = '';
 
     /** @var string */
-    protected $phone = '';
+    protected $phoneNumber = '';
 
     /** @var string */
     protected $externalId = '';
@@ -87,19 +87,19 @@ class Contact
     /**
      * @return string
      */
-    public function getPhone(): string
+    public function getPhoneNumber(): string
     {
-        return $this->phone;
+        return $this->phoneNumber;
     }
 
     /**
-     * @param string $phone
+     * @param string $phoneNumber
      *
      * @return Contact
      */
-    public function setPhone(string $phone): Contact
+    public function setPhoneNumber(string $phoneNumber): Contact
     {
-        $this->phone = $phone;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
@@ -175,7 +175,7 @@ class Contact
             'email'       => $this->getEmail() ?: null,
             'name'        => $this->getName() ?: null,
             'externalId'  => $this->getExternalId() ?: null,
-            'phoneNumber' => $this->getPhone() ?: null,
+            'phoneNumber' => $this->getPhoneNumber() ?: null,
             'variables'   => [],
         ];
 

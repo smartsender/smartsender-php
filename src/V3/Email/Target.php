@@ -68,7 +68,7 @@ class Target
     {
         return [
             'email' => $this->email,
-            'name' => $this->name,
+            'name'  => $this->name,
         ];
     }
 

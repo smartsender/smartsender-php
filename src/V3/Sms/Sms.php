@@ -22,7 +22,7 @@ class Sms
     protected $domain;
 
     /** @var string */
-    protected $to = '';
+    protected $phoneNumber = '';
 
     /** @var string */
     protected $text = '';
@@ -99,19 +99,19 @@ class Sms
     /**
      * @return string
      */
-    public function getTo(): string
+    public function getPhoneNumber(): string
     {
-        return $this->to;
+        return $this->phoneNumber;
     }
 
     /**
-     * @param string $to
+     * @param string $phoneNumber
      *
      * @return Sms
      */
-    public function setTo(string $to): Sms
+    public function setPhoneNumber(string $phoneNumber): Sms
     {
-        $this->to = $to;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
@@ -202,14 +202,14 @@ class Sms
     public function __toArray(): array
     {
         return [
-            'id'        => $this->getId(),
-            'status'    => $this->getStatus(),
-            'domain'    => $this->getDomain(),
-            'to'        => $this->getTo(),
-            'text'      => $this->getText(),
-            'fromName'  => $this->getFromName(),
-            'tags'      => $this->getTags(),
-            'createdAt' => !$this->getCreatedAt() ?: $this->getCreatedAt()->format('Y-m-d H:i:s'),
+            'id'          => $this->getId(),
+            'status'      => $this->getStatus(),
+            'domain'      => $this->getDomain(),
+            'phoneNumber' => $this->getPhoneNumber(),
+            'text'        => $this->getText(),
+            'fromName'    => $this->getFromName(),
+            'tags'        => $this->getTags(),
+            'createdAt'   => !$this->getCreatedAt() ?: $this->getCreatedAt()->format('Y-m-d H:i:s'),
         ];
     }
 
@@ -230,9 +230,8 @@ class Sms
         }
 
         $sms->setText(isset($array['text']) ? $array['text'] : '');
-        $sms->setTo(isset($array['to']) ? $array['to'] : '');
+        $sms->setPhoneNumber(isset($array['phoneNumber']) ? $array['phoneNumber'] : '');
         $sms->setFromName(isset($array['fromName']) ? $array['fromName'] : '');
-        $sms->setFromName(isset($array['from']) ? $array['from'] : '');
 
         if (isset($array['createdAt'])
             && $createdAt = \DateTime::createFromFormat('Y-m-d H:i:s', $array['createdAt'], new \DateTimeZone('UTC'))) {

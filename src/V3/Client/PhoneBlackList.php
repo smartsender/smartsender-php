@@ -17,6 +17,7 @@ use SmartSender\V3\Exceptions\SmartSenderException;
 
 class PhoneBlackList extends BaseClient
 {
+
     /**
      * @param BannedPhone[] $bannedPhones
      *
@@ -34,8 +35,8 @@ class PhoneBlackList extends BaseClient
                 throw new SmartSenderException('bannedPhone must be an instance of ' . BannedPhone::class);
             }
 
-            if (!in_array($bannedPhone->getType(), BannedPhone::ALLOWED_TYPES)) {
-                throw new BannedPhoneException('type ' . $bannedPhone->getType() . ' is not allowed');
+            if (!in_array($bannedPhone->getRejectType(), BannedPhone::ALLOWED_TYPES)) {
+                throw new BannedPhoneException('type ' . $bannedPhone->getRejectType() . ' is not allowed');
             }
 
             $request['records'][] = $bannedPhone->__toArray();
@@ -69,7 +70,7 @@ class PhoneBlackList extends BaseClient
         }
 
         if (!empty($type)) {
-            $pagination->setType($type);
+            $pagination->setRejectType($type);
         }
 
         /** @var Response $response */

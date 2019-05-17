@@ -16,6 +16,7 @@ use SmartSender\V3\Email\TriggerEmail;
 
 class Mailer extends BaseClient
 {
+
     /**
      * @param Email $email
      *

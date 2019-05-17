@@ -20,7 +20,7 @@ class BannedPhonePaginationTest extends TestCase
     {
         $pagination = new BannedPhonePagination();
         $pagination->setPhone('+12341111111');
-        $pagination->setType('testType');
+        $pagination->setRejectType('testType');
         $pagination->setLimit(100);
         $pagination->setOffset(1000);
 

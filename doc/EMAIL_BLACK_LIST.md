@@ -9,7 +9,7 @@ $emailBlackList = new \SmartSender\V3\Client\EmailBlackList($adapter);
 
 $first = new \SmartSender\V3\BannedEmail\BannedEmail();
 $first->setEmail('first@example.com');
-$first->setType(\SmartSender\V3\BannedEmail\BannedEmail::TYPE_HARD);
+$first->setRejectType(\SmartSender\V3\BannedEmail\BannedEmail::TYPE_HARD);
 $first->setRawLog('creating by setters');
 
 $add = [
@@ -37,7 +37,7 @@ echo 'Records offset: ' . $pagination->getOffset() . PHP_EOL;
 foreach ($pagination->getBannedEmails() as $bannedEmail) {
     
     /** @var \SmartSender\V3\BannedEmail\BannedEmail $bannedEmail */
-    echo $bannedEmail->getEmail() . ' ' . $bannedEmail->getType() . ' ' . $bannedEmail->getExpireAt()
+    echo $bannedEmail->getEmail() . ' ' . $bannedEmail->getRejectType() . ' ' . $bannedEmail->getExpireAt()
                                                                                       ->format('Y-m-d H:i:s') . PHP_EOL;
 }
 ```
@@ -49,5 +49,9 @@ $adapter = new \SmartSender\V3\Adapter\CurlAdapter($accessToken);
 
 $emailBlackList = new \SmartSender\V3\Client\EmailBlackList($adapter);
 
-$result = $emailBlackList->remove('example@example.com', '');
+// all records with email 'example@example.com'
+$result = $emailBlackList->remove('example@example.com'); 
+
+// all records with email 'example@example.com' and reject type 'complaint'
+$result = $emailBlackList->remove('example@example.com', \SmartSender\V3\BannedEmail\BannedEmail::TYPE_COMPLAINT);
 ```

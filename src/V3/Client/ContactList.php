@@ -16,6 +16,7 @@ use SmartSender\V3\Exceptions\SmartSenderException;
 
 class ContactList extends BaseClient
 {
+
     /**
      * @param string $contactListId
      * @param array  $contacts
@@ -108,14 +109,14 @@ class ContactList extends BaseClient
     {
         $request = [
             'contactListId' => $contactListId,
-            'variablesMetadata' => [],
+            'variables'     => [],
         ];
 
-        foreach($variables as $variable) {
+        foreach ($variables as $variable) {
             if (!$variable instanceof Variable) {
                 throw new SmartSenderException('variable must be an instance of ' . Variable::class);
             }
-            $request['variablesMetadata'][] = $variable->__toArray();
+            $request['variables'][] = $variable->__toArray();
         }
 
         /** @var Response $response */

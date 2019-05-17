@@ -11,5 +11,6 @@ namespace SmartSender\V3\Auth;
 
 interface AuthInterface
 {
+
     public function getAuthHeaders(): array;
 }

@@ -90,13 +90,13 @@ class GlobalVariable
     public function __toArray()
     {
         return [
-            'name'  => $this->getName(),
-            'value' => $this->getValue(),
-            'createdAt'   => !$this->getCreatedAt() ?: $this->getCreatedAt()->format('Y-m-d H:i:s'),
+            'name'      => $this->getName(),
+            'value'     => $this->getValue(),
+            'createdAt' => !$this->getCreatedAt() ?: $this->getCreatedAt()->format('Y-m-d H:i:s'),
         ];
     }
 
-    public static function createFromArray(array $array):  GlobalVariable
+    public static function createFromArray(array $array): GlobalVariable
     {
         $globalVariable = new static(isset($array['name']) ? strval($array['name']) : '',
             isset($array['value']) ? $array['value'] : '');

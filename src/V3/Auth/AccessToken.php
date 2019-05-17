@@ -11,7 +11,8 @@ namespace SmartSender\V3\Auth;
 
 class AccessToken implements AuthInterface
 {
-    /** @var string  */
+
+    /** @var string */
     private $accessToken;
 
     /**

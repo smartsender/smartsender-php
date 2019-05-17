@@ -26,7 +26,7 @@ class BannedEmail
     protected $email;
 
     /** @var string|null */
-    protected $type;
+    protected $rejectType;
 
     /** @var string|null */
     protected $rawLog;
@@ -37,11 +37,11 @@ class BannedEmail
     /** @var \DateTime|null */
     protected $expireAt;
 
-    public function __construct(string $email = null, string $type = null, string $rawLog = null)
+    public function __construct(string $email = null, string $rejectType = null, string $rawLog = null)
     {
-        $this->email  = $email;
-        $this->type   = $type;
-        $this->rawLog = $rawLog;
+        $this->email      = $email;
+        $this->rejectType = $rejectType;
+        $this->rawLog     = $rawLog;
     }
 
     /**
@@ -67,19 +67,19 @@ class BannedEmail
     /**
      * @return string|null
      */
-    public function getType(): string
+    public function getRejectType(): string
     {
-        return $this->type;
+        return $this->rejectType;
     }
 
     /**
-     * @param string $type
+     * @param string $rejectType
      *
      * @return BannedEmail
      */
-    public function setType(string $type): BannedEmail
+    public function setRejectType(string $rejectType): BannedEmail
     {
-        $this->type = $type;
+        $this->rejectType = $rejectType;
 
         return $this;
     }
@@ -148,11 +148,11 @@ class BannedEmail
     public function __toArray()
     {
         return [
-            'email'     => $this->getEmail(),
-            'type'      => $this->getType(),
-            'rawLog'    => $this->getRawLog(),
-            'createdAt' => !$this->getCreatedAt() ?: $this->getCreatedAt()->format('Y-m-d H:i:s'),
-            'expireAt'  => !$this->getExpireAt() ?: $this->getExpireAt()->format('Y-m-d H:i:s'),
+            'email'      => $this->getEmail(),
+            'rejectType' => $this->getRejectType(),
+            'rawLog'     => $this->getRawLog(),
+            'createdAt'  => !$this->getCreatedAt() ?: $this->getCreatedAt()->format('Y-m-d H:i:s'),
+            'expireAt'   => !$this->getExpireAt() ?: $this->getExpireAt()->format('Y-m-d H:i:s'),
         ];
     }
 
@@ -162,8 +162,8 @@ class BannedEmail
         if (isset($array['email']) && !empty($array['email'])) {
             $bannedEmail->setEmail(strval($array['email']));
         }
-        if (isset($array['type']) && !empty($array['type'])) {
-            $bannedEmail->setType(strval($array['type']));
+        if (isset($array['rejectType']) && !empty($array['rejectType'])) {
+            $bannedEmail->setRejectType(strval($array['rejectType']));
         }
         if (isset($array['rawLog']) && !empty($array['rawLog'])) {
             $bannedEmail->setRawLog(strval($array['rawLog']));

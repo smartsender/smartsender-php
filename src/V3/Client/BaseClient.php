@@ -13,6 +13,7 @@ use SmartSender\V3\Adapter\AdapterInterface;
 
 class BaseClient
 {
+
     const SUPPORT_EMAIL = 'support@smartsender.io';
 
     /** @var AdapterInterface */

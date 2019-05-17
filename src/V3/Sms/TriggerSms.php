@@ -187,7 +187,7 @@ class TriggerSms
             'variables'     => [],
         ];
 
-        foreach($this->getVariables() as $variable) {
+        foreach ($this->getVariables() as $variable) {
             $array['variables'][] = $variable->__toArray();
         }
 

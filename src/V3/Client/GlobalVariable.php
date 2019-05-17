@@ -53,7 +53,7 @@ class GlobalVariable extends BaseClient
         $response = $this->adapter->request('/v3/global-variables/all');
 
         $globalVariables = [];
-        foreach($response->getParsedBody() as $globalVariable) {
+        foreach ($response->getParsedBody() as $globalVariable) {
             $globalVariables[] = \SmartSender\V3\GlobalVariable\GlobalVariable::createFromArray($globalVariable);
         }
 

@@ -9,7 +9,7 @@ $smsClient       = new \SmartSender\V3\Client\Sms($adapter);
 
 $sms = new \SmartSender\V3\Sms\Sms();
 $sms->setFromName('SenderID');
-$sms->setTo('+12341111111');
+$sms->setPhoneNumber('+12341111111');
 $sms->setText('Your text');
 $sms->addTag('someTag');
 

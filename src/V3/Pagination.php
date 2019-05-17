@@ -10,13 +10,14 @@ namespace SmartSender\V3;
 
 class Pagination
 {
-    /** @var int  */
+
+    /** @var int */
     protected $offset = 0;
 
-    /** @var int  */
+    /** @var int */
     protected $limit = 0;
 
-    /** @var int  */
+    /** @var int */
     protected $totalCount = 0;
 
     /**

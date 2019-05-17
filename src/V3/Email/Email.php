@@ -320,7 +320,7 @@ class Email
         }
 
         if (isset($array['replyTo'])) {
-            $email->setTo(new Target(isset($array['replyTo']['email']) ? $array['replyTo']['email'] : '',
+            $email->setReplyTo(new Target(isset($array['replyTo']['email']) ? $array['replyTo']['email'] : '',
                 isset($array['replyTo']['name']) ? $array['replyTo']['name'] : ''));
         }
 

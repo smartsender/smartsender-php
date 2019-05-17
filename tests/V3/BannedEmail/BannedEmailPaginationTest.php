@@ -19,7 +19,7 @@ class BannedEmailPaginationTest extends TestCase
     {
         $pagination = new BannedEmailPagination();
         $pagination->setEmail('test@example.com');
-        $pagination->setType('testType');
+        $pagination->setRejectType('testType');
         $pagination->setLimit(100);
         $pagination->setOffset(1000);
 
@@ -27,12 +27,12 @@ class BannedEmailPaginationTest extends TestCase
 
         $this->assertIsArray($array);
         $this->assertArrayHasKey('email', $array);
-        $this->assertArrayHasKey('type', $array);
+        $this->assertArrayHasKey('rejectType', $array);
         $this->assertArrayHasKey('limit', $array);
         $this->assertArrayHasKey('offset', $array);
 
         $this->assertEquals('test@example.com', $array['email']);
-        $this->assertEquals('testType', $array['type']);
+        $this->assertEquals('testType', $array['rejectType']);
         $this->assertEquals(100, $array['limit']);
         $this->assertEquals(1000, $array['offset']);
     }

@@ -17,6 +17,7 @@ use SmartSender\V3\Exceptions\SmartSenderException;
 
 class EmailBlackList extends BaseClient
 {
+
     /**
      * @param array $bannedEmails
      *
@@ -34,8 +35,8 @@ class EmailBlackList extends BaseClient
                 throw new SmartSenderException('banned emails must be an instances of ' . BannedEmail::class);
             }
 
-            if (!in_array($bannedEmail->getType(), BannedEmail::ALLOWED_TYPES)) {
-                throw new BannedEmailException('type ' . $bannedEmail->getType() . ' is not allowed');
+            if (!in_array($bannedEmail->getRejectType(), BannedEmail::ALLOWED_TYPES)) {
+                throw new BannedEmailException('rejectType ' . $bannedEmail->getRejectType() . ' is not allowed');
             }
 
             $request['records'][] = $bannedEmail->__toArray();
@@ -69,7 +70,7 @@ class EmailBlackList extends BaseClient
         }
 
         if (!empty($type)) {
-            $pagination->setType($type);
+            $pagination->setRejectType($type);
         }
 
         /** @var Response $response */
@@ -103,7 +104,7 @@ class EmailBlackList extends BaseClient
         ];
 
         if (!empty($type)) {
-            $request['type'] = $type;
+            $request['rejectType'] = $type;
         }
 
         /** @var Response $response */
